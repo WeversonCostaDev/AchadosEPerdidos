@@ -1,0 +1,12 @@
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    border: 1px solid red;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
