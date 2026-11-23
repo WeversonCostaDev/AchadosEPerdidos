@@ -6,32 +6,40 @@ interface IPasswordStepProps {
 }
 
 function PasswordStep({ onBack, onNext }: IPasswordStepProps) {
+
+    const createHandler = (event: React.SubmitEvent<HTMLFormElement>)=> {
+        event.preventDefault();
+        onNext();
+    } 
+
     return (
-        <div className="password-step">
-            <h2 className="register-title">Crie sua senha</h2>
+        <form onSubmit={createHandler}>
+            <div className="password-step">
+                <h2 className="register-title">Crie sua senha</h2>
 
-            <input
-                className="register-input"
-                type="password"
-                placeholder="Digite sua senha"
-            />
+                <input
+                    className="register-input"
+                    type="password"
+                    placeholder="Digite sua senha"
+                />
 
-            <input
-                className="register-input"
-                type="password"
-                placeholder="Confirme sua senha"
-            />
+                <input
+                    className="register-input"
+                    type="password"
+                    placeholder="Confirme sua senha"
+                />
 
-            <div className="register-actions">
-                <button className="register-back" onClick={onBack}>
-                    Voltar
-                </button>
+                <div className="register-actions">
+                    <button className="register-back" onClick={onBack} type="button">
+                        Voltar
+                    </button>
 
-                <button className="register-submit" onClick={onNext}>
-                    Criar
-                </button>
+                    <button className="register-submit" type="submit">
+                        Criar
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     );
 }
 
