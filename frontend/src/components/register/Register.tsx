@@ -1,4 +1,7 @@
 import { useState } from "react";
+import EmailStep from "./steps/EmailStep";
+import PasswordStep from "./steps/PasswordStep";
+import "./Register.css";
 
 interface IRegisterProps{
     onLogin: () => void;
@@ -6,24 +9,24 @@ interface IRegisterProps{
 
 function Register({onLogin}: IRegisterProps){
     const [step, setStep]= useState(1);
+    const [email, setEmail] = useState("");
 
     return(
         <div className="register-form">
             {step === 1 && (
-                <>
-                    <input type="e-mail" placeholder="E-mail"/>
-                    <button onClick={onLogin}>Voltar</button>
-                    <button onClick={()=>{setStep(2)}}>Enviar</button>
-                </>
+                <EmailStep
+                    onBack={onLogin}
+                    nextStep={() => setStep(2)}
+                    setEmail={setEmail}
+                    email={email}
+                />
             )}
 
             {step === 2 && (
-                <>
-                    <input type="password" placeholder="Enter your password"/>
-                    <input type="password" placeholder="Confirm your password"/>
-                    <button onClick={()=>{setStep(1)}}>Voltar</button>
-                    <button>Criar</button>
-                </>
+                <PasswordStep
+                    onBack={()=> setStep(1)}
+                    onNext={()=> null}
+                />
             )}
         </div>
     );

@@ -1,34 +1,27 @@
 import { useState } from "react";
-import Login from "../Login";
-import Register from "../register/Register";
 import "./Dropdown.css";
 
 interface DropdownProps{
     dropdownName: string;
+    children: React.ReactNode;
 }
 
-function Dropdown({dropdownName}: DropdownProps){
-    const [value, setValue] = useState(false);
-    const [screen, setScreen] = useState("login");
+function Dropdown({dropdownName, children}: DropdownProps){
+    const [open, setOpen] = useState(false);
+
+    const toggle = () => {
+        setOpen(!open)
+    }
 
     return(
         <div className="dropdown">
-            <button onClick={()=>setValue(!value)}>{dropdownName}</button>
+            <button className="dropdown-button" onClick={toggle}>{dropdownName}</button>
 
-            {value ? (
+            {open && (
             <div className="dropdown-content">
-                {screen === "login" ? 
-                    <Login
-                        onRegister={()=> setScreen("register")}
-                    />
-                    :
-                    <Register
-                        onLogin={()=> setScreen("login")}
-                    />
-                } 
-
+                {children}
             </div>
-            ) : null}
+            )}
         </div>
     );
 }

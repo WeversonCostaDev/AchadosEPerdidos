@@ -1,0 +1,68 @@
+.email-step {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.register-title {
+    margin: 0 0 8px;
+    color: #173B67;
+    font-size: 18px;
+}
+
+.register-input {
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    outline: none;
+
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.register-input:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 2px #DBEAFE;
+}
+
+.register-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.register-actions button {
+    flex: 1;
+    padding: 12px;
+
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.register-back {
+    border: 1px solid #CBD5E1;
+    background-color: #FFFFFF;
+    color: #64748B;
+}
+
+.register-back:hover {
+    background-color: #F1F5F9;
+    border-color: #94A3B8;
+}
+
+.register-submit {
+    border: 1px solid #2563EB;
+    background-color: #2563EB;
+    color: #FFFFFF;
+}
+
+.register-submit:hover {
+    background-color: #173B67;
+    border-color: #173B67;
+}

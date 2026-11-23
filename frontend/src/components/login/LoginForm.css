@@ -1,0 +1,118 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.login-form-title {
+    margin: 0 0 8px;
+    color: #173B67;
+    font-size: 18px;
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px;
+
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    outline: none;
+
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.login-input:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 2px #DBEAFE;
+}
+
+.login-submit {
+    width: 100%;
+    padding: 12px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #2563EB;
+    color: #FFFFFF;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-submit:hover {
+    background-color: #173B67;
+}
+
+.login-register-text {
+    margin: 4px 0 0;
+    color: #64748B;
+    font-size: 13px;
+    text-align: center;
+}
+
+.login-register-button {
+    margin-left: 4px;
+    padding: 0;
+
+    border: none;
+    background: none;
+
+    color: #2563EB;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.login-register-button:hover {
+    text-decoration: underline;
+}
+
+/*===================*/
+
+.login-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.login-actions button {
+    flex: 1;
+    padding: 12px;
+
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.login-back {
+    border: 1px solid #CBD5E1;
+    background-color: #FFFFFF;
+    color: #64748B;
+}
+
+.login-back:hover {
+    background-color: #F1F5F9;
+    border-color: #94A3B8;
+}
+
+.login-submit {
+    border: 1px solid #2563EB;
+    background-color: #2563EB;
+    color: #FFFFFF;
+}
+
+.login-submit:hover {
+    background-color: #173B67;
+    border-color: #173B67;
+}

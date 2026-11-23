@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import "./main.css";
 
 // 	Inicializa o React e configura o roteamento.
 import App from './App.tsx'
