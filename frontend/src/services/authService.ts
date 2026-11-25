@@ -7,6 +7,7 @@ export async function login(email: string, password:string): Promise<IUser>{
             "Content-Type": "application/json"
        },
        credentials: "include",
+
        body: JSON.stringify({email, password})
     }); 
 
