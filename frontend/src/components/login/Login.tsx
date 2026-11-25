@@ -11,9 +11,14 @@ interface ILoginProps{
 
 function Login({onRegister, onBack, onForm, showForm}: ILoginProps){
     const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const emailHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const handleEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
          setEmail(event.target.value);
+    };
+
+    const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
+         setPassword(event.target.value);
     };
 
     return(
@@ -32,8 +37,10 @@ function Login({onRegister, onBack, onForm, showForm}: ILoginProps){
                 <LoginForm
                     onBack={onBack}
                     onRegister={onRegister}
-                    emailHandler={emailHandler}
+                    handleEmail={handleEmail}
                     email={email}
+                    handlePassword={handlePassword}
+                    password={password}
                 />
             }
             
