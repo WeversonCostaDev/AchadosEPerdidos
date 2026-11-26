@@ -1,4 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { getCurrentUser } from "../services/authService";
+import {login, logout} from "../services/authService";
 
 export interface IUser {
     id: string;
@@ -6,9 +8,15 @@ export interface IUser {
     email: string;
 }
 
+export type credentials = {
+    email: string;
+    password: string;
+}
+
 interface IAuthContext{
     logged: IUser | null;
-    onLogin: (user: IUser)=>void;
+    onLogin: (credentials: credentials)=>Promise<void>;
+    onLogout: ()=> void;
 }
 
 export const AuthContext = createContext<IAuthContext | null>(null);
@@ -20,14 +28,35 @@ interface IAuthProviderProps{
 
 export function AuthProvider({children}: IAuthProviderProps){
     const [logged, setLogged] = useState<IUser | null>(null);
+   
     
-    const onLogin = (user: IUser) =>{
-        setLogged(user);
+    useEffect(() => {
+        async function verifyUser() {
+            try {
+                const user = await getCurrentUser();
+                setLogged(user);
+            }
+            catch (error) {
+                console.error("Erro ao verificar autenticação:", error);
+                setLogged(null);
+            }
+        }
+
+    verifyUser();
+}, []);
+
+    const onLogin = async (credentials: credentials) =>{
+        const response = await login(credentials);
+        setLogged(response);
         console.log(logged);
+    }
+    const onLogout = async ()=>{
+        await logout();
+        setLogged(null);
     }
 
     return(
-        <AuthContext.Provider value={{logged, onLogin}}>
+        <AuthContext.Provider value={{logged, onLogin, onLogout}}>
             {children}
         </AuthContext.Provider>
     );

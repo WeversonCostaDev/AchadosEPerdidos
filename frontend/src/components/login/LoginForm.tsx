@@ -1,7 +1,7 @@
 import "./LoginForm.css";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import {login} from "../../services/authService";
+import type { credentials } from "../../contexts/AuthContext";
 
 interface ILoginFormProps{
     onBack: () => void;
@@ -14,16 +14,20 @@ interface ILoginFormProps{
 
 function LoginForm({ onRegister, onBack, handleEmail, email, handlePassword, password}: ILoginFormProps) {
     const context = useContext(AuthContext);
-    if(!context) throw new Error ("AuthProvider não fornecido!");
+
+    if(!context) throw new Error ("LoginForm precisa estar dentro de um Authprovider.");
 
     const handleLogin = async (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const data = new FormData(event.target);
 
-        const response = await login(String(data.get("email")), String(data.get("password")));
-        
-        context.onLogin(response);
+        const email: string = String(data.get("email"));
+        const password: string = String(data.get("password"));
+        const credentials: credentials = {
+            email, password
+        };
+        context.onLogin(credentials);
     }
     
     return (

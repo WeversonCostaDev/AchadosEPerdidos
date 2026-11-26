@@ -1,4 +1,6 @@
 import "./Logo.css";
+import { Link } from "react-router-dom";
+
 
 interface LogoProps{
     src: string;
@@ -7,9 +9,9 @@ interface LogoProps{
 
 function Logo({src, alt}: LogoProps){
     return(
-        <div className="logo">
+        <Link to="/" className="logo">
             <img src={src} alt={alt} />
-        </div>
+        </Link>
     );
 }
 

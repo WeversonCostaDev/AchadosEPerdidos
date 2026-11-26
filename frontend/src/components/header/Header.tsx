@@ -4,6 +4,7 @@ import SearchBar from "../searchBar/SearchBar";
 import imagemLogo from "../../assets/logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
+import UserMenu from "../userMenu/UserMenu";
 
 import "./Header.css";
 
@@ -35,7 +36,9 @@ function Header(){
 
                 {context.logged ?
                  
-                    <span> Olá usuário, {context.logged.name}!</span>
+                    <UserMenu
+                        userName={context.logged.name}
+                    />
                 :
                     <Auth
                         dropdownName="Entrar ou Cadastrar"

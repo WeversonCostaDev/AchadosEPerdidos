@@ -20,7 +20,7 @@ export const handlers = [
             )
         }
 
-        const token = crypto.randomUUID();
+        const token = `${String(crypto.randomUUID())}.${btoa(JSON.stringify(user))}`;
 
         return HttpResponse.json(
             {
@@ -37,4 +37,33 @@ export const handlers = [
         );
         
     }),
+    // RECUPERAÇÃO DA SESSÃO
+    http.get("/api/auth/me", ({ cookies }) => {
+        const token = cookies.token;
+
+        if (!token) {
+            return HttpResponse.json(
+                { message: "Não autenticado" },
+                { status: 401 }
+            );
+        }
+
+        const [, payloadCodificado] = token.split(".");
+
+        const payload = JSON.parse(atob(payloadCodificado));
+
+        return HttpResponse.json(payload);
+    }),
+
+    http.post("/api/auth/logout", ()=>{
+        return new HttpResponse(
+            {message: "Logout realizado com sucesso!"},
+            {
+                status:204,
+                headers: {
+                    "Set-Cookie": "token=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0"
+                }
+            }
+        );
+    })
 ];

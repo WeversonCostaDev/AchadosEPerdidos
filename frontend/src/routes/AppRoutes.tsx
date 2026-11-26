@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
-import Login from "../pages/Login";
+import Account from "../pages/account";
 import Register from "../pages/Register";
 
 
@@ -11,7 +11,7 @@ function AppRoutes() {
         <Routes>
             <Route element={<MainLayout />}>
                 <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/account" element={<Account />} />
                 <Route path="/register" element={<Register />} />
             </Route>
         </Routes>
