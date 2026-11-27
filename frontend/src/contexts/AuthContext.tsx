@@ -8,14 +8,14 @@ export interface IUser {
     email: string;
 }
 
-export type credentials = {
+export type Credentials = {
     email: string;
     password: string;
 }
 
 interface IAuthContext{
     logged: IUser | null;
-    onLogin: (credentials: credentials)=>Promise<void>;
+    onLogin: (credentials: Credentials)=>Promise<void>;
     onLogout: ()=> void;
 }
 
@@ -45,7 +45,7 @@ export function AuthProvider({children}: IAuthProviderProps){
     verifyUser();
 }, []);
 
-    const onLogin = async (credentials: credentials) =>{
+    const onLogin = async (credentials: Credentials) =>{
         const response = await login(credentials);
         setLogged(response);
         console.log(logged);

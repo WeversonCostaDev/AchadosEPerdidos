@@ -2,14 +2,24 @@ import {http, HttpResponse} from "msw";
 
 const users = [{id: "1", name: "joao", email: "joao@gmail.com", password: "123"}];
 
+type User = {
+    id: string,
+    name: string,
+    email: string,
+    password: string,
+}
 
 export const handlers = [
-    http.post("/api/auth/login", async ({request}) => {
+    http.post("/api/auth/login", async (httpcontext) => {
 
-        const { email, password } = await request.json() as {
+        const { email, password } = await httpcontext.request.json() as {
             email: string;
             password: string;
         };
+
+        console.log("Usuários cadastrados:", users);
+        console.log("E-mail recebido:", email);
+        console.log("Senha recebida:", password);
 
         const user = users.find(u => u.email === email && u.password === password);
 
@@ -65,5 +75,25 @@ export const handlers = [
                 }
             }
         );
+    }),
+    http.post("/api/auth/register", async(httpcontext)=> {
+        const {email, password} = await httpcontext.request.json() as {email: string, password: string}; 
+
+        const user: User = {
+            id: Date.now().toString(),
+            name: "UserName",
+            email: email,
+            password: password,
+        }
+
+        users.push(user);
+
+        return HttpResponse.json({
+            message: "Cadastro realizado!",
+            user: user
+        },
+        {
+            status: 201
+        });
     })
 ];

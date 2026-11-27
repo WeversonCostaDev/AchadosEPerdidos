@@ -1,10 +1,8 @@
 import type {IUser} from "../contexts/AuthContext";
-import type { credentials } from "../contexts/AuthContext";
+import type { Credentials } from "../contexts/AuthContext";
 
 
-export async function login(credentials:credentials): Promise<IUser>{
-    const email = credentials.email;
-    const password = credentials.password;
+export async function login(credentials:Credentials): Promise<IUser>{
 
     const response = await fetch ("/api/auth/login", {
        "method": "POST",
@@ -12,7 +10,7 @@ export async function login(credentials:credentials): Promise<IUser>{
             "Content-Type": "application/json"
        },
        credentials: "include",
-       body: JSON.stringify({email, password})
+       body: JSON.stringify(credentials)
     }); 
 
     if(!response.ok)
@@ -46,4 +44,22 @@ export async function logout(): Promise<void>{
 
     if(!reponse.ok) throw new Error("Erro ao tentar deslogar!");
 
+}
+
+export async function register(credentials:Credentials){
+    const response = await fetch("/api/auth/register",{
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(credentials),
+    }
+    );
+
+    if (!response.ok) {
+        throw new Error("Erro ao realizar cadastro.");
+    }
+    
+    return response.json();
 }

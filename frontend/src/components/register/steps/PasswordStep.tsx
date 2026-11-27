@@ -1,16 +1,34 @@
+import { useState } from "react";
 import "./PassworkStep.css";
 
 interface IPasswordStepProps {
     onBack: () => void;
-    onNext: () => void;
+    onNext: (password:string) => void;
 }
 
 function PasswordStep({ onBack, onNext }: IPasswordStepProps) {
 
-    const createHandler = (event: React.SubmitEvent<HTMLFormElement>)=> {
+    const [password, setPassowrd] = useState("");
+    const [confirm, setConfirm] = useState("");
+
+    const createHandler = (event: React.SubmitEvent<HTMLFormElement>):void => {
         event.preventDefault();
-        onNext();
+
+        if(password !== confirm){
+            alert("as senhas não coincidem!");
+            return;
+        }
+
+        onNext(password);
     } 
+
+    const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        setPassowrd(event.currentTarget.value);
+    }
+    const handleConfirm = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        setConfirm(event.currentTarget.value);
+    }
+
 
     return (
         <form onSubmit={createHandler}>
@@ -21,12 +39,16 @@ function PasswordStep({ onBack, onNext }: IPasswordStepProps) {
                     className="register-input"
                     type="password"
                     placeholder="Digite sua senha"
+                    onChange={handlePassword}
+                    value={password}
                 />
 
                 <input
                     className="register-input"
                     type="password"
                     placeholder="Confirme sua senha"
+                    onChange={handleConfirm}
+                    value={confirm}
                 />
 
                 <div className="register-actions">

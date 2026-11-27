@@ -1,6 +1,8 @@
 import { useState } from "react";
 import EmailStep from "./steps/EmailStep";
 import PasswordStep from "./steps/PasswordStep";
+import {register} from "../../services/authService";
+
 import "./Register.css";
 
 interface IRegisterProps{
@@ -10,6 +12,18 @@ interface IRegisterProps{
 function Register({onLogin}: IRegisterProps){
     const [step, setStep]= useState(1);
     const [email, setEmail] = useState("");
+
+    const createAccount =(password: string):void=>{
+        try{
+            const response = register({email, password});
+            console.log(response);
+            onLogin();
+        }
+        catch(error){
+            console.log(`Erro ao realizar cadastro: ${error}`);
+        }
+        
+    }
 
     return(
         <div className="register-form">
@@ -25,7 +39,7 @@ function Register({onLogin}: IRegisterProps){
             {step === 2 && (
                 <PasswordStep
                     onBack={()=> setStep(1)}
-                    onNext={()=> null}
+                    onNext={createAccount}
                 />
             )}
         </div>
