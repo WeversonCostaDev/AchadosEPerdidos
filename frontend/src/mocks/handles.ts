@@ -78,6 +78,15 @@ export const handlers = [
     }),
     http.post("/api/auth/register", async(httpcontext)=> {
         const {email, password} = await httpcontext.request.json() as {email: string, password: string}; 
+        
+        const userFinded = users.find(u => u.email === email);
+        
+        if(userFinded){
+             return HttpResponse.json(
+            { message: "Já existe uma conta com este endereço de email!" },
+            { status: 409 }
+        );
+        }
 
         const user: User = {
             id: Date.now().toString(),
