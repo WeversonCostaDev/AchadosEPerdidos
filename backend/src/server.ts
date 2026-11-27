@@ -1,20 +1,19 @@
-import dotenvSafe from "dotenv-safe";
-import express from "express";
+import { env } from "./config/env.js";
+import { testarConexao } from "./config/database.js";
+import app from "./app.js";
 
-dotenvSafe.config();
+async function iniciar() {
+    try {
+        await testarConexao();
+        console.log("Conectado ao MySQL com sucesso.");
+    } catch (erro) {
+        console.error("Falha ao conectar ao MySQL:", erro);
+        process.exit(1);
+    }
 
-const porta = Number(process.env.PORT);
-const app = express();
-
-app.use(express.json());
-
-app.get("/", (request, response) => {
-    response.status(200).json({
-        mensagem: "API Achados e Perdidos funcionando!",
-        status: "online"
+    app.listen(env.porta, () => {
+        console.log(`Servidor executando em http://localhost:${env.porta}`);
     });
-});
+}
 
-app.listen(porta, () => {
-    console.log(`Servidor executando em http://localhost:${porta}`);
-});
+iniciar();
